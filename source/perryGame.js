@@ -39,7 +39,7 @@
           ;
      
        world = new b2World(
-             new b2Vec2(2, 15)    //gravity
+             new b2Vec2(0, 0)    //gravity
           ,  true                 //allow sleep
        );
        
@@ -74,30 +74,18 @@
         world.CreateBody(bodyDef).CreateFixture(fixDef);
 
        //create dynamic circle object
-      for (var j=0; j<150; j++){
        bodyDef.type = b2Body.b2_dynamicBody;
        fixDef.shape = new b2CircleShape(
-          Math.random()*0.1 + 0.1 //radius
+          Math.random() + 0.1 //radius
        );
        bodyDef.position.x = Math.random() * 25;
        bodyDef.position.y = Math.random() * 10;
        bodyDef.density = Math.random(); 
-       world.CreateBody(bodyDef).CreateFixture(fixDef);
-     }
-
-       // create dynamic polygon object
-       for(var i=0; i<100; i++){
-       bodyDef.type = b2Body.b2_dynamicBody;
-       fixDef.shape = new b2PolygonShape;
-       fixDef.shape.SetAsBox(
-             Math.random()*0.2 + 0.1 //half width
-          ,  Math.random()*0.2 + 0.1 //half height
-       );
-       bodyDef.position.x = Math.random() * 25;
-       bodyDef.position.y = Math.random() * 10;
-       bodyDef.density = Math.random(); 
-       world.CreateBody(bodyDef).CreateFixture(fixDef);
-     }
+       //world.CreateBody(bodyDef).CreateFixture(fixDef); 
+	   var ball = world.CreateBody(bodyDef); 
+	   ball.CreateFixture(fixDef); 
+	   ball.SetLinearVelocity(new b2Vec2(15,5)); 
+	   
      
        //setup debug draw
        var debugDraw = new b2DebugDraw();
@@ -109,7 +97,7 @@
        world.SetDebugDraw(debugDraw);
      
        // restart
-       setTimeout(init, 10000);
+       //setTimeout(init, 10000);
     }; // init()
   
     function update() {
